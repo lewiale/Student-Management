@@ -1,8 +1,5 @@
 package com.lbs.studentmanagementapp.service.IMPL;
-
-import com.lbs.studentmanagementapp.dto.BatchDTO;
-import com.lbs.studentmanagementapp.dto.BatchSaveDTO;
-import com.lbs.studentmanagementapp.dto.CourseDTO;
+import com.lbs.studentmanagementapp.dto.*;
 import com.lbs.studentmanagementapp.entity.Batch;
 import com.lbs.studentmanagementapp.entity.Course;
 import com.lbs.studentmanagementapp.repo.BatchRepo;
@@ -10,6 +7,7 @@ import com.lbs.studentmanagementapp.repo.CourseRepo;
 import com.lbs.studentmanagementapp.service.BatchService;
 import com.lbs.studentmanagementapp.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -52,5 +50,33 @@ public class BatchServiceIMPL implements BatchService {
         return batchDTOList;
     }
 
+    @Override
+    public String updateBatch(BatchUpdateDTO batchUpdateDTO) {
+
+
+        if (batchRepo.existsById(batchUpdateDTO.getBatchid())) {
+            Batch batch = batchRepo.getById(batchUpdateDTO.getBatchid());
+                batch.setBatchid(batchUpdateDTO.getBatchid());
+                batch.setBatchname(batchUpdateDTO.getBatchname());
+                batch.setCourse(courseRepo.getById(batchUpdateDTO.getCourseid()));
+                batch.setStartdate(batchUpdateDTO.getStartdate());
+
+
+            batchRepo.save(batch);
+            return "Batch with ID " + batchUpdateDTO.getBatchid() + " (" + batch.getBatchname() + ") has been updated.";
+        } else {
+            return "Batch ID not found";
+        }
+    }
+
+    @Override
+    public String deleteBatch(int batchId) {
+        if (batchRepo.existsById(batchId)) {
+            batchRepo.deleteById(batchId);
+            return "Batch with ID " + batchId + " has been deleted.";
+        } else {
+            throw new RuntimeException("Batch ID not found");
+        }
+    }
 
 }

@@ -23,6 +23,9 @@ public class Batch {
     @JoinColumn(name = "course_id", nullable = false)
     private Course course;
 
+    @OneToMany(mappedBy = "batch", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<Enrollment> enrollments;
+
 
     public Batch(int batchid, String batchname, String startdate, Course course) {
         this.batchid = batchid;

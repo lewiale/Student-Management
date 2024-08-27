@@ -3,6 +3,8 @@ package com.lbs.studentmanagementapp.entity;
 
 import jakarta.persistence.*;
 
+import java.util.Set;
+
 @Entity
 @Table(name="student")
 public class Student {
@@ -16,6 +18,10 @@ public class Student {
     private String address;
     @Column(name="student_phone",length = 12)
     private String phone;
+
+    @OneToMany(mappedBy = "student", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<Enrollment> enrollments;
+
 
     public Student() {
     }

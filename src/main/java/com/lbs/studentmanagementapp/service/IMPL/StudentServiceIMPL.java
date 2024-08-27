@@ -28,7 +28,7 @@ public class StudentServiceIMPL implements StudentService {
 
         studentRepo.save(student);
 
-        return student.getStudentname();
+        return student.getStudentname() + " has been added.";
     }
 
     @Override
@@ -52,20 +52,12 @@ public class StudentServiceIMPL implements StudentService {
 
         if (studentRepo.existsById(studentUpdateDTO.getStudentid())) {
             Student student = studentRepo.getById(studentUpdateDTO.getStudentid());
-
-            if (studentUpdateDTO.getStudentname() != null) {
-                student.setStudentname(studentUpdateDTO.getStudentname());
-            }
-            if (studentUpdateDTO.getAddress() != null) {
-                student.setAddress(studentUpdateDTO.getAddress());
-            }
-            if (studentUpdateDTO.getPhone() != null) {
-                student.setPhone(studentUpdateDTO.getPhone());
-            }
-
+            student.setStudentname(studentUpdateDTO.getStudentname());
+            student.setAddress(studentUpdateDTO.getAddress());
+            student.setPhone(studentUpdateDTO.getPhone());
             studentRepo.save(student);
 
-            return student.getStudentname();
+            return student.getStudentname() + " has been added as a student!";
         } else {
             return "Student ID not found";
         }

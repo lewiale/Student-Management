@@ -17,5 +17,9 @@ public class DeleteCourseRequest {
     public void setCourseid(Integer courseid) {
         this.courseid = courseid;
     }
+
+    public int getBatchId() {
+        return getBatchId();
+    }
 }
 

@@ -50,17 +50,9 @@ public class CourseServiceIMPL implements CourseService {
     public String updateCourse(CourseUpdateDTO courseUpdateDTO) {
         if (courseRepo.existsById(courseUpdateDTO.getCourseid())) {
             Course course = courseRepo.getById(courseUpdateDTO.getCourseid());
-
-            if (courseUpdateDTO.getSubject() != null) {
-                course.setSubject(courseUpdateDTO.getSubject());
-            }
-            if (courseUpdateDTO.getDuration() != null) {
-                course.setDuration(courseUpdateDTO.getDuration());
-            }
-            if (courseUpdateDTO.getSyllabus() != null) {
-                course.setSyllabus(courseUpdateDTO.getSyllabus());
-            }
-
+            course.setSubject(courseUpdateDTO.getSubject());
+            course.setDuration(courseUpdateDTO.getDuration());
+            course.setSyllabus(courseUpdateDTO.getSyllabus());
             courseRepo.save(course);
             return "Course with ID " + courseUpdateDTO.getCourseid() + " (" + course.getSubject() + ") has been updated.";
         } else {
